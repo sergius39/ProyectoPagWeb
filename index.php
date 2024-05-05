@@ -13,7 +13,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
     <link rel="stylesheet" href="style.css">    
 </head>
 <body>
-    <header class="header">
+<header class="header">
         <div class="menu container">
             <div>
 
@@ -30,7 +30,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
             </nav>
 
             <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
-            <nav class="iconos-carritoLogin login-responsive">                
+            <nav class="iconos-carritoLogin login-responsive carro">                
                 <ul>
                     <li>                                          
                         <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
@@ -40,7 +40,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
                 <?php endif; ?> <!-- Fin de la verificación de la sesión -->
             </nav>
 
-            <nav class="carrito-responsive ">
+            <nav class="carrito-responsive carro">
                 <ul>
                     <li>
                     <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
@@ -54,15 +54,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
                         echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
                     }   
                     ?>          
-            </nav>
-
-             <nav class="navbar cerrar_sesion cierra_sesion_responsive">                
-                <?php 
-                    if ($nombreUsuario) { 
-                        echo'<a href="destruir_sesion.php"><img  src="imagenes/cross.svg" width=10px height=10px> Cerrar sesión</a>';                
-                    }
-                ?>      
-            </nav>
+            </nav>            
         </div>         
     </header>
     <section class="products container">

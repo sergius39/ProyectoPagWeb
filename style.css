@@ -51,7 +51,7 @@ body{
 }
 
 .iconos-carritoLogin img {
-    width: 25px; 
+    width: 25px;    
 }
 
 .logo{
@@ -59,14 +59,12 @@ body{
     font-size: 50px;
     font-weight: 800;
 }
+.carro{
+    margin-right: -200px;
+}
 
 span{
     color: green;
-}
-
-.sesion_login {
-    width: 100px;
-    margin-right: 5px;  
 }
 
 .sesion_login a{
@@ -76,15 +74,7 @@ span{
 
 .iconos-carritoLogin{
     margin-left: 500px;
-    margin-right: -70px;    
-}
-
-.navbar.cerrar_sesion a{
-    color: #FFFFFF;    
-    font-weight: bold;
-    margin-left: 200px;
-    border-radius: 10px;
-    margin-right: 5px;
+    margin-right: -90px;    
 }
 
 .menu .navbar ul li{
@@ -524,7 +514,6 @@ input::placeholder{
     font-size: 15px;
 }
 
-
 /*PRODUCTOS*/
 .descripcion-plato-semana a.form-contacto {
     position: relative;
@@ -557,7 +546,6 @@ input::placeholder{
     padding: 0 5px;    
     background-color: red;
 }
-
 
 /*FOOTER*/
 .footer{
@@ -626,24 +614,25 @@ text-align: start;
 
 .politica-privacidad{
     text-align: start;
-    padding: 30px 0;
+    padding: 30px 0 0;
 }
 
 .politica-privacidad h3{
     font-size: 40px;
     padding-bottom: 10px;
-    margin-top: -50px;
+    margin-top: -40px;
 }
 
 .politica-privacidad p{
     font-size: 21px;
     line-height: 1.8;
     padding-top: 10px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .politica-privacidad ul{
-    margin-top: -70px;
+    margin-top: -30px;
+    text-align: justify;    
 }
 
 /*MODAL LOGIN*/
@@ -756,6 +745,73 @@ text-align: start;
     font-size: 24px;
     cursor: pointer;
   }
+
+.cerrar_sesion{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cerrar_sesion a{
+    font-size: 20px;
+}
+
+
+.admin-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.row-container{
+    display: flex;
+    gap: 10%;
+    padding-top: 20px;
+}
+
+.row-container hr{
+    margin: 10px 0 20px;
+}
+
+.admin-container form{
+    width: 50%;
+    height: 40vh;
+}
+
+.admin-form h4{
+    font-size: 25px;
+}
+
+.admin-input{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.admin-input input, select{
+    height: 25px;
+}
+
+.btn-admin{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-admin input[type="submit"]{
+    width: 20%;
+    height: 35px;
+}
+
+.resultado{
+    height:70vh;
+    width: 100%;
+    text-align: left;
+}
+
+.resultado hr ,h4{
+    margin-bottom: 20px;
+    font-size: 20px;
+}
   
 @media(max-width:768px){ 
     .menu, .container{
@@ -871,5 +927,5 @@ text-align: start;
     }
     .formulario-content{
         width: 90%
-    }
+    }   
 }

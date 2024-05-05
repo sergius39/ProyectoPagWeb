@@ -1,6 +1,6 @@
 <?php
 session_start();
-$nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
+$nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUsuario']) : null;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -13,7 +13,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] 
     <link rel="stylesheet" href="style.css">    
 </head>
 <body>
-<header class="header">
+    <header class="header">
         <div class="menu container">
             <div>
 
@@ -43,7 +43,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] 
             <nav class="carrito-responsive ">
                 <ul>
                     <li>
-                        <img src="imagenes/cart.svg" id="img-carrito" alt="">                     
+                    <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
                     </li>
                 </ul>
             </nav>
@@ -167,22 +167,31 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] 
 
 </footer>
 
-<!-- Modal -->
-<div id="myModal" class="modal">
-<div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2><span>Fresh</span>Taste</h2>
-    <div id="error" class="errores"></div>         
-    <form id="loginForm" method="post" action="">          
-        <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
-        <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
-        <input type="submit" name="validar" value="Entrar" onclick="return login()">
-        <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
-    </form>
+<!-- Modal Inicio de sesión-->
+<div id="ModalLogin" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2><span>Fresh</span>Taste</h2>
+        <div id="error" class="errores"></div>         
+        <form id="loginForm" method="post" action="">          
+            <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
+            <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
+            <input type="submit" name="validar" value="Entrar" onclick="return login()">
+            <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
+        </form>
+    </div>
 </div>
+
+<!-- Modal carrito de la compra-->
+<div id="cartModal" class="modalCarrito">
+  <div class="modal-contentCarrito">
+    <span class="closeCarrito">&times;</span>
+    <h2><span>Fresh</span>Taste</h2>
+    <!-- Contenido del carrito -->
+    <p>Tu carrito está vacío.</p>
+  </div>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>

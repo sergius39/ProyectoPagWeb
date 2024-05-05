@@ -13,8 +13,18 @@ if (!empty($_POST['validar'])) {
         exit; // Detener la ejecución del script
     }
 
+    // Verificar si las credenciales son para el administrador
+    if($email == "admin" && $contrasena == "1234"){
+        $_SESSION['administrador'] = "Administrador";
+
+        // Si es un administrador, enviar un objeto JSON indicando el tipo de usuario
+        echo json_encode(array("exito" => true, "mensaje" => "Inicio de sesión exitoso", "nombreUsuario" => "Administrador", "tipo" => "admin"));
+
+        exit; // Importante para detener la ejecución del script después de enviar la respuesta
+    }
+
     // Consultar la base de datos para obtener la contraseña almacenada
-    $sql = "SELECT id, nombre, contraseña FROM usuarios WHERE email = ?";
+    $sql = "SELECT idcliente, nombre, apellido, telefono, contraseña FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email); // "s" indica que el parámetro es de tipo string
 
@@ -22,7 +32,7 @@ if (!empty($_POST['validar'])) {
     $stmt->execute();
 
     // Vincular el resultado de la consulta a variables
-    $stmt->bind_result($idUsuario, $nombreUsuario, $contraseñaAlmacenada);
+    $stmt->bind_result($idUsuario, $nombreUsuario, $apellidoUsuario, $telefonoUsuario, $contraseñaAlmacenada);
 
     // Recuperar el resultado
     $stmt->fetch();
@@ -34,9 +44,13 @@ if (!empty($_POST['validar'])) {
         // Verificar si la contraseña proporcionada coincide con la almacenada
         if (password_verify($contrasena, $contraseñaAlmacenada)) {
             // La contraseña es correcta
-            $_SESSION['nombreUsuario'] = $nombreUsuario;
-            $_SESSION['emailUsuario'] = $email;
             $_SESSION['idUsuario'] = $idUsuario;
+            $_SESSION['emailUsuario'] = $email;
+            $_SESSION['nombreUsuario'] = $nombreUsuario;
+            $_SESSION['apellidoUsuario'] = $apellidoUsuario;
+            $_SESSION['telefonoUsuario'] = $telefonoUsuario; 
+            $_SESSION['passUsuario'] = $contrasena;
+  
 
             echo json_encode(array("exito" => true, "mensaje" => "Inicio de sesión exitoso", "nombreUsuario" => $nombreUsuario));
         } else {
