@@ -110,9 +110,11 @@ $administrador =  $_SESSION['administrador'];
         </div>
         
         <div class="resultado">
+     
             <?php                       
             include ('controlador_administrador.php');                  
             ?>
+          
         </div>        
     </div>  
     </section>

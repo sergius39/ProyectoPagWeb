@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 }
 
-// BOTÓN ACTUALIZAR
+// BOTÓN ACTUALIZAR USUARIO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Actualizar usuario') {
   $idCliente = $_POST['idCliente-admin'] ?? '';
@@ -193,7 +193,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   $email = $_POST['email-admin'] ?? '';
   $telefono = $_POST['telefono-admin'] ?? '';
 
-  // Verificar si se ha ingresado el ID del cliente
   if (empty($usuario) && empty($apellido) && empty($email) && empty($telefono) && empty($idCliente)) {
     echo "Debe ingresar al menos un valor para borrar.";
   } else {
@@ -275,7 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 }
 
-// TABLA PLATOS CONSULTAR
+// CONSULTAR PLATOS
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Consultar plato') {
   $idPlato = $_POST['idPlato-admin'];
@@ -388,6 +387,255 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
         echo "No se encontraron resultados.";
       }
       echo "</div>";
+    }
+  }
+}
+
+// ACTUALIZAR PLATOS
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Actualizar plato') {
+  $idPlato = $_POST['idPlato-admin'];
+  $tablas = $_POST['tabla'];
+
+  if (empty($tablas)) {
+      echo "Es necesario elegir una tabla.";
+  } else {
+      switch ($tablas) {
+          case 'cremas':
+              $campo_id = 'idcrema';
+              break;
+          case 'pizzas':
+              $campo_id = 'idpizza';
+              break;
+          case 'platos':
+              $campo_id = 'idplato';
+              break;
+          case 'ensaladas':
+              $campo_id = 'idensalada';
+              break;
+          case 'postres':
+              $campo_id = 'idpostre';
+              break;
+          default:
+              echo "Tabla no reconocida.";
+              return;
+      }
+
+      if (empty($idPlato)) {
+          echo "Debe ingresar el ID del plato para actualizar.";
+      } else {
+          // Obtener los valores de los campos del formulario
+          $nombrePlato = $_POST['nombrePlato-admin'];
+          $descripcionPlato = $_POST['descripcionPlato-admin'];
+          $precioPlato = $_POST['precioPlato-admin'];
+
+          // Verificar si al menos uno de los campos ha sido ingresado
+          if (empty($nombrePlato) && empty($descripcionPlato) && empty($precioPlato)) {
+              echo "Debe ingresar al menos un valor para actualizar.";
+          } else {
+              // Crear la consulta preparada
+              $consulta_actualizar = "UPDATE $tablas SET";
+
+              // Verificar qué campos se han ingresado y agregarlos a la consulta preparada
+              $parametros = [];
+              $tipos = '';
+
+              if (!empty($nombrePlato)) {
+                  $consulta_actualizar .= " nombre = ?,";
+                  $parametros[] = &$nombrePlato;
+                  $tipos .= 's';
+              }
+              if (!empty($descripcionPlato)) {
+                  $consulta_actualizar .= " descripcion = ?,";
+                  $parametros[] = &$descripcionPlato;
+                  $tipos .= 's';
+              }
+              if (!empty($precioPlato)) {
+                  $consulta_actualizar .= " precio = ?,";
+                  $parametros[] = &$precioPlato;
+                  $tipos .= 's';
+              }
+
+              // Eliminar la coma extra al final de la consulta
+              $consulta_actualizar = rtrim($consulta_actualizar, ",");
+
+              // Agregar la condición WHERE
+              $consulta_actualizar .= " WHERE $campo_id = ?";
+
+              // Agregar el tipo de dato para el ID del plato
+              $tipos .= 'i';
+              $parametros[] = &$idPlato;
+
+              // Ejecutar la consulta preparada
+              $stmt = $conn->prepare($consulta_actualizar);
+              if ($stmt) {
+                  // Unir los parámetros con sus tipos
+                  $params = array_merge([$tipos], $parametros);
+
+                  // Llamar a bind_param con los parámetros por referencia
+                  call_user_func_array(array($stmt, 'bind_param'), $params);
+
+                  // Ejecutar la consulta
+                  $stmt->execute();
+
+                  // Verificar si se actualizaron filas
+                  if ($stmt->affected_rows > 0) {
+                      echo "Los datos se actualizaron correctamente.";
+                  } else {
+                      echo "No se realizaron cambios.";
+                  }
+
+                  // Cerrar la consulta preparada
+                  $stmt->close();
+              } else {
+                  echo "Error al preparar la consulta: " . $conn->error;
+              }
+          }
+      }
+  }
+}
+
+// AÑADIR PLATOS
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Añadir plato') {
+  $tablas = $_POST['tabla'];
+
+  if (empty($tablas)) {
+      echo "Es necesario elegir una tabla.";
+  } else {
+    // Verificar si se han proporcionado datos para cada campo (excepto ID)
+    $nombrePlato = $_POST['nombrePlato-admin'];
+    $descripcionPlato = $_POST['descripcionPlato-admin'];
+    $precioPlato = $_POST['precioPlato-admin'];
+
+    if (empty($nombrePlato) || empty($descripcionPlato) || empty($precioPlato)) {
+      echo "Debe ingresar todos los valores del plato.";
+    } else {
+      // Crear la consulta preparada para insertar el nuevo plato
+      $consulta_insertar = "INSERT INTO $tablas (nombre, descripcion, precio) VALUES (?, ?, ?)";
+
+      // Preparar la consulta
+      $stmt = $conn->prepare($consulta_insertar);
+      if ($stmt) {
+      // Asignar los valores a los parámetros y ejecutar la consulta
+        $stmt->bind_param("sss", $nombrePlato, $descripcionPlato, $precioPlato);
+        if ($stmt->execute()) {
+          echo "El plato se añadió correctamente.";
+        } else {
+          echo "Error al añadir el plato: " . $conn->error;
+        }
+
+        // Cerrar la consulta preparada
+        $stmt->close();
+        } else {
+          echo "Error al preparar la consulta: " . $conn->error;
+        }    
+    }
+  }
+}
+
+//BORRAR PLATO
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Borrar plato') {
+  $idPlato = $_POST['idPlato-admin'];
+  $nombrePlato = $_POST['nombrePlato-admin'];
+  $descripcionPlato = $_POST['descripcionPlato-admin'];
+  $precioPlato = $_POST['precioPlato-admin'];  
+  $tablas = $_POST['tabla'];
+
+  if (empty($tablas)) {
+    echo "Es necesario elegir una tabla.";
+  } else {
+
+    switch ($tablas) {
+      case 'cremas':
+        $campo_id = 'idcrema';
+        break;
+      case 'pizzas':
+        $campo_id = 'idpizza';
+        break;
+      case 'platos':
+        $campo_id = 'idplato';
+        break;
+      case 'ensaladas':
+        $campo_id = 'idensalada';
+        break;
+      case 'postres':
+        $campo_id = 'idpostre';
+          break;
+      default:
+          echo "Tabla no reconocida.";
+          return;
+    }
+
+      if (empty($idPlato) && empty($nombrePlato) && empty($descripcionPlato) && empty($precioPlato)) {
+      echo "Debe ingresar al menos un valor para borrar.";   
+    } else {
+
+      $idPlato = $_POST['idPlato-admin'];
+      $nombrePlato = $_POST['nombrePlato-admin'];
+      $descripcionPlato = $_POST['descripcionPlato-admin'];
+      $precioPlato = $_POST['precioPlato-admin'];
+  
+      // Id del Plato
+      if (!empty($idPlato)) {
+        $consulta_borrar_idPlato = "DELETE FROM $tablas WHERE $campo_id = ?";
+        $stmt_idPlato = $conn->prepare($consulta_borrar_idPlato);
+        $stmt_idPlato->bind_param("i", $idPlato);
+        $stmt_idPlato->execute();
+  
+        if ($stmt_idPlato->affected_rows > 0) {
+          echo "Borrado de plato realizado con éxito";
+        } else {
+          echo "No se encontró ningún plato con el ID proporcionado.";
+        }
+        $stmt_idPlato->close();
+      }
+  
+      // Nombre del plato
+      if (!empty($nombrePlato)) {
+        $consulta_borrar_nombrePlato = "DELETE FROM $tablas WHERE nombre = ?";
+        $stmt_nombrePlato = $conn->prepare($consulta_borrar_nombrePlato);
+        $stmt_nombrePlato->bind_param("s", $nombrePlato);
+        $stmt_nombrePlato->execute();
+  
+        if ($stmt_nombrePlato->affected_rows > 0) {
+          echo "Borrado de plato realizado con éxito";
+        } else {
+          echo "No se encontró ningún plato con el nombre proporcionado.";
+        }
+        $stmt_nombrePlato->close();
+      }
+  
+      // Descripción del plato
+      if (!empty($descripcionPlato)) {
+        $consulta_borrar_descripcionPlato = "DELETE FROM $tablas WHERE descripcion = ?";
+        $stmt_descripcionPlato = $conn->prepare($consulta_borrar_descripcionPlato);
+        $stmt_descripcionPlato->bind_param("s", $descripcionPlato);
+        $stmt_descripcionPlato->execute();
+  
+        if ($stmt_descripcionPlato->affected_rows > 0) {
+          echo "Borrado de plato realizado con éxito";
+        } else {
+          echo "No se encontró ningún platp con la descripción proporcionada.";
+        }
+        $stmt_descripcionPlato->close();
+      }
+  
+      // Precio del plato
+      if (!empty($precioPlato)) {
+        $consulta_borrar_precioPlato = "DELETE FROM $tablas WHERE precio = ?";
+        $stmt_precioPlato = $conn->prepare($consulta_borrar_precioPlato);
+        $stmt_precioPlato->bind_param("s", $precioPlato);
+        $stmt_precioPlato->execute();
+  
+        if ($stmt_precioPlato->affected_rows > 0) {
+          echo "Borrado de plato realizado con éxito";
+        } else {
+          echo "No se encontró ningún plato con el precio proporcionado.";
+        }
+        $stmt_precioPlato->close();
+      }     
     }
   }
 }

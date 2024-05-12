@@ -823,6 +823,7 @@ text-align: start;
     display: flex;
     gap: 10%;
     padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 .row-container hr{
@@ -864,12 +865,13 @@ text-align: start;
     height:70vh;
     width: 100%;
     text-align: left;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .resultado hr ,h4{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 20px;
+    margin-top: 10px;
 }
   
 @media(max-width:768px){ 
