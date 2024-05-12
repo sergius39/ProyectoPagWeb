@@ -2,69 +2,97 @@
 session_start();
 $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUsuario']) : null;
 ?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+    <title>Document</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">    
 </head>
 <body>
 <header class="header">
-        <div class="menu container">
-            <div>
+  <div class="menu container">
+    <div>
+      <a href="index.php" class="logo"><span>Fresh</span>Taste</a>        
+    </div>
 
-            <a href="index.php" class="logo"><span>Fresh</span>Taste</a>
-        
-            </div>
+    <div class=menu-opciones>
+      <nav class="navbar">
+        <ul>
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="productos.php">Productos</a></li>
+          <li><a href="contacto.php">Contacto</a></li>             
+        </ul>
+      </nav>
+    </div>
 
-            <nav class="navbar">
-                <ul>
-                    <li><a href="index.php">Inicio</a></li>
-                    <li><a href="productos.php">Productos</a></li>
-                    <li><a href="contacto.php">Contacto</a></li>             
-                </ul>
-            </nav>
+    <div class="contenedor-carrito-login">
 
-            <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
-            <nav class="iconos-carritoLogin login-responsive">                
-                <ul>
-                    <li>                                          
-                        <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
-                    </li>
-                </ul>
-            
-                <?php endif; ?> <!-- Fin de la verificación de la sesión -->
-            </nav>
+      <nav>
+        <ul>
+          <li>
+            <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
+          </li>
+        </ul>
+      </nav>
 
-            <nav class="carrito-responsive ">
-                <ul>
-                    <li>
-                        <img src="imagenes/cart.svg" id="img-carrito" alt="">                     
-                    </li>
-                </ul>
-            </nav>
+      <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
+      <nav class="icono-login">                
+        <ul>
+         <li>                                          
+           <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
+          </li>
+        </ul>            
+      <?php endif; ?> <!-- Fin de la verificación de la sesión -->  
+      </nav> 
 
-            <nav class="navbar sesion_login usuario_responsive">  
-                <?php
-                    if ($nombreUsuario){
-                        echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
-                    }   
-                    ?>          
-            </nav>
+      <nav class="sesion_login">  
+        <?php
+          if ($nombreUsuario){
+            echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
+          }   
+        ?>          
+      </nav>  
+    </div>     
+  </div>         
+</header>
+<!-- Modal Inicio de sesión-->
+<div id="ModalLogin" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2><span>Fresh</span>Taste</h2>
+        <div id="error" class="errores"></div>         
+        <form id="loginForm" method="post" action="">          
+            <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
+            <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
+            <input type="submit" name="validar" value="Entrar" onclick="return login()">
+            <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
+        </form>
+    </div>
+</div>
 
-             <nav class="navbar cerrar_sesion cierra_sesion_responsive">                
-                <?php 
-                    if ($nombreUsuario) { 
-                        echo'<a href="destruir_sesion.php"><img  src="imagenes/cross.svg" width=10px height=10px> Cerrar sesión</a>';                
-                    }
-                ?>      
-            </nav>
-        </div>         
-    </header>
+<!-- Modal carrito de la compra-->
+<div id="cartModal" class="modalCarrito">
+  <div class="modal-contentCarrito">
+    <span class="closeCarrito">&times;</span>
+    <h2><span>Fresh</span>Taste</h2>
+    <!-- Contenido del carrito -->
+    <p>Tu carrito está vacío.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+
+
+
+
+
+
+
 </body>
 </html>
 

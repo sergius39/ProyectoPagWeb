@@ -13,58 +13,52 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
     <link rel="stylesheet" href="style.css">    
 </head>
 <body>
-    <header class="header">
-        <div class="menu container">
-            <div>
+<header class="header">
+  <div class="menu container">
+    <div>
+      <a href="index.php" class="logo"><span>Fresh</span>Taste</a>        
+    </div>
 
-            <a href="index.php" class="logo"><span>Fresh</span>Taste</a>
-        
-            </div>
+    <div class=menu-opciones>
+      <nav class="navbar">
+        <ul>
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="productos.php">Productos</a></li>
+          <li><a href="contacto.php">Contacto</a></li>             
+        </ul>
+      </nav>
+    </div>
 
-            <nav class="navbar">
-                <ul>
-                    <li><a href="index.php">Inicio</a></li>
-                    <li><a href="productos.php">Productos</a></li>
-                    <li><a href="contacto.php">Contacto</a></li>             
-                </ul>
-            </nav>
+    <div class="contenedor-carrito-login">
 
-            <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
-            <nav class="iconos-carritoLogin login-responsive">                
-                <ul>
-                    <li>                                          
-                        <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
-                    </li>
-                </ul>
-            
-                <?php endif; ?> <!-- Fin de la verificación de la sesión -->
-            </nav>
+      <nav>
+        <ul>
+          <li>
+            <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
+          </li>
+        </ul>
+      </nav>
 
-            <nav class="carrito-responsive ">
-                <ul>
-                    <li>
-                    <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
-                    </li>
-                </ul>
-            </nav>
+      <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
+      <nav class="icono-login">                
+        <ul>
+         <li>                                          
+           <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
+          </li>
+        </ul>            
+      <?php endif; ?> <!-- Fin de la verificación de la sesión -->  
+      </nav> 
 
-            <nav class="navbar sesion_login usuario_responsive">  
-                <?php
-                    if ($nombreUsuario){
-                        echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
-                    }   
-                    ?>          
-            </nav>
-
-             <nav class="navbar cerrar_sesion cierra_sesion_responsive">                
-                <?php 
-                    if ($nombreUsuario) { 
-                        echo'<a href="destruir_sesion.php"><img  src="imagenes/cross.svg" width=10px height=10px> Cerrar sesión</a>';                
-                    }
-                ?>      
-            </nav>
-        </div>         
-    </header>
+      <nav class="sesion_login">  
+        <?php
+          if ($nombreUsuario){
+            echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
+          }   
+        ?>          
+      </nav>  
+    </div>     
+  </div>         
+</header>
 
        <section class="products container" id="lista-1">
         <h3 class="platos-semana">Nuestros Platos</h3>
@@ -231,7 +225,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
                 <div class="product">
                     <img src="imagenes/ensaladanicoise.jpg" alt="">
                         <h3>Ensalada niçoise</h3>
-                        <p>Desconocida pero no por ello, espectacular ensalada que viene de Italia</p>
+                        <p>Desconocida pero no por ello, espectacular ensalada que viene de Francia</p>
                         <p class="precio">7.50 €</p>
                         <a href=""class="agregar-carrito btn-2" data-id="18">Agregar al carrito</a>
                 </div>    

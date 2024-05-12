@@ -14,7 +14,7 @@ $administrador =  $_SESSION['administrador'];
     <link rel="stylesheet" href="style.css">    
 </head>
 <body>
-    <header class="header">
+  <header class="header">
         <div class="menu container">
             <div>
 
@@ -40,10 +40,15 @@ $administrador =  $_SESSION['administrador'];
             <form class="admin-form" method="POST">
                 <h4>Clientes</h4>
                 <hr>
+                
+                <div class="admin-input">
+                Id Cliente <input type="text" name='idCliente-admin'>
+                </div>
+            
                 <div class="admin-input">
                 Usuario <input type="text" name='usuario-admin'>
                 </div>
-            
+
                 <div class="admin-input">
                 Apellido <input type="text" name='apellido-admin'>                
                 </div>
@@ -57,45 +62,48 @@ $administrador =  $_SESSION['administrador'];
                 </div>
 
                 <div class="btn-admin">
-                <input type="submit" name="accion" value="Consultar">
-                <input type="submit" name="accion" value="Actualizar">
-                <input type="submit" name="accion" value="Añadir">
-                <input type="submit" name="accion" value="Borrar Usuario">
+                <input type="submit" name="accion" value="Consultar usuario">
+                <input type="submit" name="accion" value="Actualizar usuario">
+                <input type="submit" name="accion" value="Borrar usuario">
 
                 </div>
             </form>
 
-            <form action=""class="admin-form">
+            <form class="admin-form" method="POST">
                 <h4>Platos</h4>
                 <hr>
                 <div class="admin-input">
-                Nombre <input type="text">
+                    Id Plato <input type="text" name='idPlato-admin'>
                 </div>
 
                 <div class="admin-input">
-                Descripción <input type="text">
+                    Nombre <input type="text" name='nombrePlato-admin'>
                 </div>
 
                 <div class="admin-input">
-                Precio <input type="text">
+                    Descripción <input type="text" name='descripcionPlato-admin'>
                 </div>
 
                 <div class="admin-input">
-                Tablas
-                <select >
-                    <option value=""></option>
-                    <option value="cremas">Cremas</option>
-                    <option value="ensaladas">Ensaladas</option>
-                    <option value="pizzas">Pizzas</option>
-                    <option value="postres">Postres</option>
-                </select>                
+                    Precio <input type="text" name='precioPlato-admin'>
+                </div>
+
+                <div class="admin-input" name='tablas-admin'>
+                    Tablas
+                    <select name="tabla">
+                        <option value=""></option>
+                        <option value="cremas">Cremas</option>
+                        <option value="ensaladas">Ensaladas</option>
+                        <option value="pizzas">Pizzas</option>
+                        <option value="postres">Postres</option>
+                    </select>                
                 </div>
 
                 <div class="btn-admin">
-                <input type="submit" value="Consultar">
-                <input type="submit" value="Actualizar">
-                <input type="submit" value="Añadir">
-                <input type="submit" value="Borrar Platos">
+                <input type="submit" name="accion" value="Consultar plato">
+                <input type="submit" name="accion" value="Actualizar plato">
+                <input type="submit" name="accion" value="Añadir plato">
+                <input type="submit" name="accion" value="Borrar plato">
 
                 </div>
             </form>

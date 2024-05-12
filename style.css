@@ -8,10 +8,8 @@
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;   
-}
-
-body{
     font-family: "Inter Tight", sans-serif;
+
 }
 
 .container{
@@ -44,15 +42,24 @@ body{
     justify-content: space-between;
 }
 
-.iconos-carritoLogin ul {
-    display: flex; 
-    align-items: center; 
-    gap: 20px;     
+.menu-opciones{
+    width:60%;    
 }
 
-.iconos-carritoLogin img {
-    width: 25px;    
+.contenedor-carrito-login{
+    display: flex;
+    width: 100%;
+    align-items: end;
+    justify-content: end;
 }
+
+.contenedor-carrito-login img{
+    margin: 0 5px;
+}
+
+.icono-login img {
+    width: 25px;
+} 
 
 .logo{
     color: #FFFFFF;
@@ -60,7 +67,7 @@ body{
     font-weight: 800;
 }
 .carro{
-    margin-right: -200px;
+    margin-left: 100px;
 }
 
 span{
@@ -170,6 +177,7 @@ th, td{
     padding: 50px;
 }
 
+
 .products{
     padding: 70px 0 0 0;
     text-align: center;
@@ -233,15 +241,15 @@ h2 {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px; /* Posicionamos debajo del texto */
+    bottom: -2px; 
     width: 0;
     height: 2px;
     background-color: green;
-    transition: width 0.3s; /* Agrega una transición suave */
+    transition: width 0.3s; 
 }
 
 .btn-1:hover::after {
-    width: 100%; /* Aumenta la anchura al pasar el ratón por encima */
+    width: 100%; 
 }
 
 .platos-semana{
@@ -431,25 +439,8 @@ textarea {
     margin-top: -50px;
 }
 
-textarea{
-    border: 0;
-}
-
-textarea::placeholder {
-    padding:15px;
-}
-
-.icono_textarea i{
-    margin-bottom: 250px;
-}
-
-textarea::placeholder{
-    font-size: 17px;
-    font-weight: bold;
-    padding-left: 15px;
-}
-
-.input_field{
+.input_field{  
+    width: 100%;
     background-color: white;
     margin: 15px 0;
     border-radius: 5px;
@@ -470,13 +461,46 @@ textarea::placeholder{
     font-size: 15px;
 }
 
-input::placeholder{
+input::placeholder, textarea::placeholder{
     font-size: 15px;
     font-weight: bold;
 }
 
+
 .input_field i{
     margin-left: 15px;
+}
+ 
+.input_field textarea {
+padding-top: 10px;
+box-sizing: border-box; 
+width: calc(100% - 30px); 
+height: 250px; 
+resize: none;
+box-sizing: border-box; 
+border: none; 
+outline: none; 
+color: #008000;
+}
+
+.input_field.icono_textarea {
+    position: relative;
+  }
+  
+.input_field.icono_textarea i {
+    position: absolute;
+    top: 10px;
+    pointer-events: none;
+}
+  
+.input_field.icono_textarea textarea {
+    padding-left: 45px;
+    width: calc(100% - 30px); 
+    box-sizing: border-box;
+  }
+
+.comentario{
+    height: 200px;
 }
 
 .enviar_registro{
@@ -635,6 +659,39 @@ text-align: start;
     text-align: justify;    
 }
 
+/* ESTILO INFORMACIÓN DE PERFIL*/
+
+.datos{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.perfil{
+    font-size: 20px;
+    margin-top: 20px;
+}
+.perfil i{
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*MODAL LOGIN*/
 .modal {
     display: none;
@@ -753,6 +810,7 @@ text-align: start;
 }
 .cerrar_sesion a{
     font-size: 20px;
+    color: #008000;
 }
 
 
@@ -806,6 +864,7 @@ text-align: start;
     height:70vh;
     width: 100%;
     text-align: left;
+    margin-top: 50px;
 }
 
 .resultado hr ,h4{
