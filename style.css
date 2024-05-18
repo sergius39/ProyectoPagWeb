@@ -664,8 +664,8 @@ text-align: start;
 .datos{
     display: flex;
     flex-direction: column;
-    align-items: start;
     justify-content: center;
+    align-items: start;
 }
 
 .perfil{
@@ -676,6 +676,25 @@ text-align: start;
     margin-right: 10px;
 }
 
+.titulo-pedidos{
+    margin-top: 50px;
+}
+
+.pedidos{
+    margin-bottom: 50px;
+    text-align: justify;   
+}
+
+.pedidos p{
+    padding: 10px 0 0;
+    font-size: 1.5em;
+    color: #008000;
+}
+
+.pedidos strong{
+    color: #000000;
+    margin-right: 20px;
+}
 
 
 

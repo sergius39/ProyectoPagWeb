@@ -24,7 +24,7 @@ if (!empty($_POST['validar'])) {
     }
 
     // Consultar la base de datos para obtener la contraseña almacenada
-    $sql = "SELECT idcliente, nombre, apellido, telefono, contraseña FROM usuarios WHERE email = ?";
+    $sql = "SELECT idcliente, nombre, apellido, direccion, telefono, contraseña FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email); // "s" indica que el parámetro es de tipo string
 
@@ -32,7 +32,7 @@ if (!empty($_POST['validar'])) {
     $stmt->execute();
 
     // Vincular el resultado de la consulta a variables
-    $stmt->bind_result($idUsuario, $nombreUsuario, $apellidoUsuario, $telefonoUsuario, $contraseñaAlmacenada);
+    $stmt->bind_result($idUsuario, $nombreUsuario, $apellidoUsuario, $direccionUsuario, $telefonoUsuario, $contraseñaAlmacenada);
 
     // Recuperar el resultado
     $stmt->fetch();
@@ -48,6 +48,7 @@ if (!empty($_POST['validar'])) {
             $_SESSION['emailUsuario'] = $email;
             $_SESSION['nombreUsuario'] = $nombreUsuario;
             $_SESSION['apellidoUsuario'] = $apellidoUsuario;
+            $_SESSION['direccion'] = $direccionUsuario;
             $_SESSION['telefonoUsuario'] = $telefonoUsuario; 
             $_SESSION['passUsuario'] = $contrasena;
   

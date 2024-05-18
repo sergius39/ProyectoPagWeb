@@ -1,10 +1,12 @@
 <?php
 session_start();
+
 $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUsuario']) : null;
 $apellidoUsuario = isset($_SESSION['apellidoUsuario']) ? $_SESSION['apellidoUsuario'] : null;
 $email = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : null;
 $telefonoUsuario = isset($_SESSION['telefonoUsuario']) ? $_SESSION['telefonoUsuario'] : null;
 $password = isset($_SESSION['passUsuario']) ? $_SESSION['passUsuario'] : null;
+$idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
 
 function enmascararContraseña()
 {
@@ -75,41 +77,55 @@ function enmascararContraseña()
   <section class="products container" id="lista-1">
     <h3 class="platos-semana cerrar_sesion"> Mis datos
       <?php
-        if ($nombreUsuario) {
-          echo '<a href="destruir_sesion.php"> Cerrar sesión</a>';
-        }
+      if ($nombreUsuario) {
+        echo '<a href="destruir_sesion.php"> Cerrar sesión</a>';
+      }
       ?>
     </h3>
     <hr>
 
     <div class="datos">
+
       <div class="perfil">
         <i class="fa-solid fa-user"></i>
-          <?php
-          if ($nombreUsuario) { echo $nombreUsuario . " " . $apellidoUsuario; }?>
+        <?php
+        if ($nombreUsuario) {
+          echo $nombreUsuario . " " . $apellidoUsuario;
+        } ?>
       </div>
 
       <div class="perfil">
-          <i class="fa-solid fa-envelope"></i>
-          <?php if ($email) { echo $email; }?>
+        <i class="fa-solid fa-envelope"></i>
+        <?php if ($email) {
+          echo $email;
+        } ?>
       </div>
 
       <div class="perfil">
-          <i class="fa-solid fa-phone"></i>
-          <?php if ($telefonoUsuario) { echo $telefonoUsuario; }
-          ?>
+        <i class="fa-solid fa-phone"></i>
+        <?php if ($telefonoUsuario) {
+          echo $telefonoUsuario;
+        }
+        ?>
       </div>
 
       <div class="perfil">
-          <i class="fa-solid fa-key"></i>
-          <?php if ($password) { echo enmascararContraseña(); }
-          ?>
+        <i class="fa-solid fa-key"></i>
+        <?php if ($password) {
+          echo enmascararContraseña();
+        }
+        ?>
       </div>
     </div>
 
-    <div>
-      
-    </div>  
+    <h3 class="platos-semana titulo-pedidos"> Mi Último Pedido </h3>
+    <hr>
+    <div class="datos pedidos">
+      <?php
+      include('controlador_informacion_perfil.php');
+      ?>
+    </div>
+
   </section>
 
   <footer class="footer">

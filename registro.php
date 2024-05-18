@@ -91,13 +91,18 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
             </div>
 
             <div class="input_field">
+                <i class="fa-solid fa-envelope"></i>  
+                <input type="email" name="emailRegistro" id="idcorr" placeholder="Correo Electrónico" value="<?php if(isset($_POST["emailRegistro"])) echo $_POST["emailRegistro"];?>">                     
+            </div>
+
+            <div class="input_field">
                 <i class="fa-solid fa-phone"></i>
                 <input type="text" name="telefonoRegistro" id="idtelefono" placeholder="Teléfono" value="<?php if(isset($_POST["telefonoRegistro"])) echo $_POST["telefonoRegistro"];?>">                  
-            </div>
-    
+            </div>    
+           
             <div class="input_field">
                 <i class="fa-solid fa-envelope"></i>  
-                <input type="email" name="emailRegistro" id="idtel" placeholder="Correo Electrónico" value="<?php if(isset($_POST["emailRegistro"])) echo $_POST["emailRegistro"];?>">                     
+                <input type="direccion" name="direccionRegistro" id="iddir" placeholder="Dirección" value="<?php if(isset($_POST["direccionRegistro"])) echo $_POST["direccionRegistro"];?>">                     
             </div>
 
             <div class="input_field">
