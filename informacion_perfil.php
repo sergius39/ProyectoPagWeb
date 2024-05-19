@@ -7,6 +7,7 @@ $email = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : null;
 $telefonoUsuario = isset($_SESSION['telefonoUsuario']) ? $_SESSION['telefonoUsuario'] : null;
 $password = isset($_SESSION['passUsuario']) ? $_SESSION['passUsuario'] : null;
 $idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
+$direccionUsuario=isset($_SESSION['direccionUsuario']) ? $_SESSION['direccionUsuario'] : null;
 
 function enmascararContraseña()
 {
@@ -102,6 +103,13 @@ function enmascararContraseña()
       </div>
 
       <div class="perfil">
+        <i class="fa-solid fa-address-card"></i>
+        <?php if ($direccionUsuario) {
+          echo $direccionUsuario;
+        } ?>
+      </div>
+
+      <div class="perfil">
         <i class="fa-solid fa-phone"></i>
         <?php if ($telefonoUsuario) {
           echo $telefonoUsuario;
@@ -178,7 +186,7 @@ function enmascararContraseña()
     </div>
 
     <div>
-      <p>© 2024.Todos los derechos reservados</p>
+      <p>© 2024 Todos los derechos reservados</p>
     </div>
 
   </footer>
@@ -210,5 +218,4 @@ function enmascararContraseña()
 
   <script src="script.js"></script>
 </body>
-
 </html>

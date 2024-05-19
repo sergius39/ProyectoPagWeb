@@ -2,7 +2,7 @@
 include 'conexion.php';
 
 
-//BOTÓN CONSULTAR
+//CONSULTAR USUARIO
 
 // Verificar si se ha enviado el formulario y si se ha presionado el botón de "Consultar" en la primera tabla
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Consultar usuario') {
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
 
   // Consulta general si no se ingresó ningún dato
   if (empty($usuario) && empty($apellido) && empty($email) && empty($telefono) && empty($idCliente)) {
-    $consulta_general = "SELECT * FROM usuarios";
+    $consulta_general = "SELECT idcliente, nombre, apellido, email, telefono FROM usuarios";
     $resultado_general = $conn->query($consulta_general);
     $consultas['Todos los usuarios'] = $resultado_general->fetch_all(MYSQLI_ASSOC);
   }
@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     $consultas['Usuario por id'] = $resultado_idCliente->fetch_all(MYSQLI_ASSOC);
     $stmt_idCliente->close();
   }
-
 
   // Consultar si se ha ingresado un valor en el campo de usuario
   if (!empty($usuario)) {
@@ -80,8 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 
   // Mostrar los resultados
-  foreach ($consultas as $titulo => $resultado) {
-    echo "<div class='resultado'>";
+  foreach ($consultas as $titulo => $resultado) {   
     echo "<h4>$titulo</h4>";
     if (!empty($resultado)) {
       foreach ($resultado as $fila) {
@@ -93,11 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
     } else {
       echo "No se encontraron resultados.";
     }
-    echo "</div>";
   }
 }
 
-// BOTÓN ACTUALIZAR USUARIO
+//ACTUALIZAR USUARIO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Actualizar usuario') {
   $idCliente = $_POST['idCliente-admin'] ?? '';
@@ -182,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 }
 
-//BOTÓN BORRAR USUARIO
+//BORRAR USUARIO
 
 // Verificar si se ha enviado el formulario y si se ha presionado el botón de "Borrar Usuario" en la primera tabla
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Borrar usuario') {
@@ -274,7 +271,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 }
 
-// CONSULTAR PLATOS
+//CONSULTAR PLATO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Consultar plato') {
   $idPlato = $_POST['idPlato-admin'];
@@ -374,7 +371,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
 
     // Mostrar los resultados
     foreach ($consultas as $titulo => $resultado) {
-      echo "<div class='resultado'>";
       echo "<h4>$titulo</h4>";
       if (!empty($resultado)) {
         foreach ($resultado as $fila) {
@@ -386,12 +382,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
       } else {
         echo "No se encontraron resultados.";
       }
-      echo "</div>";
     }
   }
 }
 
-// ACTUALIZAR PLATOS
+//ACTUALIZAR PLATO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Actualizar plato') {
   $idPlato = $_POST['idPlato-admin'];
@@ -495,7 +490,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['a
   }
 }
 
-// AÑADIR PLATOS
+//AÑADIR PLATO
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['accion']) && $_POST['accion'] == 'Añadir plato') {
   $tablas = $_POST['tabla'];

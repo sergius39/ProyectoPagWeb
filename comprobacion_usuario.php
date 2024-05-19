@@ -21,15 +21,13 @@ $stmt->fetch();
 
 // Verificar si se encontró un usuario con la contraseña correspondiente
 if ($id_usuario) {
-    // El usuario y la contraseña existen en la base de datos
-    echo "<p>Inicio de sesión exitoso.</p>";
+  // El usuario y la contraseña existen en la base de datos
+  echo "<p>Inicio de sesión exitoso.</p>";
 } else {
-    // El usuario o la contraseña no son válidos
-    echo "<p>Usuario o contraseña incorrectos.</p>";
-    $errorLogin = true;
+  // El usuario o la contraseña no son válidos
+  echo "<p>Usuario o contraseña incorrectos.</p>";
+  $errorLogin = true;
 }
 
 $stmt->close();
 $conn->close();
-
-?>

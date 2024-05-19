@@ -118,7 +118,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] 
 </div>
 
 <div>
-    <p>© 2024.Todos los derechos reservados</p>
+    <p>© 2024 Todos los derechos reservados</p>
 </div>
 
 </footer>

@@ -178,7 +178,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
     </div>
 
     <div>
-        <p>© 2024.Todos los derechos reservados</p>
+        <p>© 2024 Todos los derechos reservados</p>
     </div>
 </footer>
 

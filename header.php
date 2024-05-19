@@ -85,21 +85,5 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
 </div>
 
 <script src="script.js"></script>
-
-
-
-
-
-
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
