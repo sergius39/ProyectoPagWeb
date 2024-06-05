@@ -171,13 +171,15 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
     </div>
   </div>
 
-  <!-- Modal carrito de la compra-->
-  <div id="cartModal" class="modalCarrito">
-    <div class="modal-contentCarrito">
-      <span class="closeCarrito">&times;</span>
+<!-- Modal del carrito de compras -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+      <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
       <h2><span>Fresh</span>Taste</h2>
-      <!-- Contenido del carrito -->
-      <p>Tu carrito está vacío.</p>
+      <div id="cartItems"></div>
+      <p id="total">Total: $0</p>
+      <p id="emptyCartMessage" style="display: none;">Tu carrito está vacío</p>
+      <button id="summaryBtn">Resumen de Compra</button>
     </div>
   </div>
 

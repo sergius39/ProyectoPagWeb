@@ -1,7 +1,6 @@
 <?php
 include 'conexion.php';
 
-
 //CONSULTAR USUARIO
 
 // Verificar si se ha enviado el formulario y si se ha presionado el botón de "Consultar" en la primera tabla

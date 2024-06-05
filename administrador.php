@@ -26,10 +26,10 @@ $administrador =  $_SESSION['administrador'];
   </header>
 
   <section class="products container" id="lista-1">
-    <h3 class="platos-semana cerrar_sesion"> Administrador
+    <h3 class="platos-semana"> Administrador
       <?php
       if ($administrador) {
-        echo '<a href="destruir_sesion.php" class="cerrar_sesion">Cerrar sesión</a>';
+        echo '<a href="destruir_sesion.php" class="cerrar_sesion_admin">Cerrar sesión</a>';
       }
       ?>
     </h3>

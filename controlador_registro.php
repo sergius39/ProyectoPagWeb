@@ -17,13 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
 
     if (!preg_match("/^[A-Za-z ]{1,50}$/", $_POST["nombreRegistro"]) || !preg_match("/^[A-Za-z ]{1,50}$/", $_POST["apellidoRegistro"])) {
-
       echo "<p>Recuerda que los nombres y los apellidos solo pueden tener letras</p>";
       $errorNombre = true;
     }
 
     if (!preg_match("/^[6-9][0-9]{8}+$/", $_POST["telefonoRegistro"])) {
-
       echo "<p>El teléfono no es válido en España</p>";
       $errorTelefono = true;
     }

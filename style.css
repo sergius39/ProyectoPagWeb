@@ -567,6 +567,11 @@ textarea::placeholder {
   background-color: red;
 }
 
+.btn-2{
+border: none;
+background-color: transparent;
+}
+
 /*FOOTER*/
 
 .footer {
@@ -775,42 +780,38 @@ a img {
 
 /* MODAL CARRITO*/
 
-.modalCarrito {
-  display: none;
+/* Estilos para el modal del carrito de compras */
+.cart-modal {
   position: fixed;
-  right: 0;
   top: 0;
-  width: 300px;
+  right: 0;
+  width: 20%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  z-index: 999; /* Z-index alto para que esté por encima del contenido */
+  display: none; /* Por defecto oculto */
+  overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+  transition: 0.5s; /* Efecto de transición suave */
 }
 
-.modal-contentCarrito {
+.cart-modal-content {
+  background-color: rgba(196, 192, 192, 0.8); /* Fondo semi-transparente */
+  width: 100%;
+  height: 100%;
   padding: 20px;
 }
 
-.modal-contentCarrito h2 {
-  color: black;
-}
-
-.closeCarrito {
+/* Estilos para el botón de cerrar del modal */
+.close-cart-modal {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
 }
 
-.cerrar_sesion {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.cerrar_sesion a {
-  font-size: 20px;
-  color: #008000;
+.eliminar-producto {
+  border: none;
 }
 
 /*ADMINISTRADOR*/
@@ -876,62 +877,128 @@ h4 {
   margin-top: 10px;
 }
 
-@media (max-width: 600px) {
+.cerrar_sesion {
+  font-size: 18px;
+  margin-left: 902px;
+  color: #008000;
+}
 
+.cerrar_sesion_admin {
+  font-size: 18px;
+  margin-left: 817px;
+  color: #008000;
+}
+
+/*RESUMEN DE COMPRA*/
+
+.total_resumen {
+  color: #008000;
+  font-size: 30px;
+  margin: 20px 0;
+  text-align: justify;
+}
+
+.eliminar-producto{
+  border: none;
+  background-color: transparent;  
+}
+
+.eliminar-producto:hover{
+  color: #008000;
+}
+
+.total_resumen button{
+  background-color: transparent;  
+  border: none;
+  font-size: 18px;
+}
+
+.total_resumen p{
+color: #000000;
+font-size: 30px;
+margin-top: 30px;
+}
+
+#processPurchaseBtn{
+width: 100%;
+border: 1px black solid;
+border-radius: 5px;
+font-size: 30px;
+}
+
+#processPurchaseBtn:hover{
+  width: 100%;
+  border: 1px black solid;
+  background-color:#008000;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 30px;
+  margin-left: 0;
+}
+
+.errores_pedido{
+  font-size: 15px;
+  color: #000000;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+
+@media (max-width: 600px) {
   .menu.container {
     flex-direction: column;
   }
 
-  .logo{
+  .logo {
     margin-left: 80px;
   }
 
   .navbar ul {
     display: flex;
-  }  
-  
+  }
+
   .contenedor-carrito-login {
     gap: 1.5rem;
   }
 
-  .contenedor-carrito-login{
-  justify-content: start;
-  text-align: start;
+  .contenedor-carrito-login {
+    justify-content: start;
+    text-align: start;
   }
 
- .admin-container {
-    flex-direction: column;   
+  .admin-container {
+    flex-direction: column;
   }
 
-  .admin-container .resultado{
-    margin-top:75px;
-
+  .admin-container .resultado {
+    margin-top: 75px;
   }
 
   .row-container {
     flex-direction: column;
   }
 
-  .tabla-responsive h4{
-  margin-top: 50px;  
+  .tabla-responsive h4 {
+    margin-top: 50px;
   }
 
-  .admin-input input, select{
+  .admin-input input,
+  select {
     width: 200%;
   }
 
   .btn-admin {
-    width: 200%;  
+    width: 200%;
   }
 
-  .btn-admin{
+  .btn-admin {
     width: 200%;
   }
 
   .btn-admin input[type="submit"] {
     width: 50%;
   }
-   
+
   .modal-content,
   .modal-contentCarrito {
     width: 90%;

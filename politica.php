@@ -197,31 +197,33 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
 
 </footer>
 
-<!-- Modal Inicio de sesión-->
-<div id="ModalLogin" class="modal">
+  <!-- Modal Inicio de sesión-->
+  <div id="ModalLogin" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2><span>Fresh</span>Taste</h2>
-        <div id="error" class="errores"></div>         
-        <form id="loginForm" method="post" action="">          
-            <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
-            <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
-            <input type="submit" name="validar" value="Entrar" onclick="return login()">
-            <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
-        </form>
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2><span>Fresh</span>Taste</h2>
+      <div id="error" class="errores"></div>
+      <form id="loginForm" method="post" action="">
+        <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
+        <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
+        <input type="submit" name="validar" value="Entrar" onclick="return login()">
+        <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
+      </form>
     </div>
-</div>
-
-<!-- Modal carrito de la compra-->
-<div id="cartModal" class="modalCarrito">
-  <div class="modal-contentCarrito">
-    <span class="closeCarrito">&times;</span>
-    <h2><span>Fresh</span>Taste</h2>
-    <!-- Contenido del carrito -->
-    <p>Tu carrito está vacío.</p>
   </div>
-</div>
 
-<script src="script.js"></script>
+<!-- Modal del carrito de compras -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+      <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
+      <h2><span>Fresh</span>Taste</h2>
+      <div id="cartItems"></div>
+      <p id="total">Total: $0</p>
+      <p id="emptyCartMessage" style="display: none;">Tu carrito está vacío</p>
+      <button id="summaryBtn">Resumen de Compra</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
