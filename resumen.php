@@ -1,30 +1,21 @@
 <?php
 session_start();
-
 $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUsuario']) : null;
-$apellidoUsuario = isset($_SESSION['apellidoUsuario']) ? $_SESSION['apellidoUsuario'] : null;
-$email = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : null;
-$telefonoUsuario = isset($_SESSION['telefonoUsuario']) ? $_SESSION['telefonoUsuario'] : null;
-$password = isset($_SESSION['passUsuario']) ? $_SESSION['passUsuario'] : null;
-$idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
-$direccionUsuario = isset($_SESSION['direccionUsuario']) ? $_SESSION['direccionUsuario'] : null;
-
-function enmascararContraseña()
-{
-  return "*****";
-}
 ?>
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <title>Resumen de Compra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <link rel="stylesheet" href="style.css">
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -81,71 +72,46 @@ function enmascararContraseña()
     </div>
   </header>
 
-  <section class="products container " id="lista-1">
-    <h3 class="platos-semana"> Mis datos
-      <?php
-      if ($nombreUsuario) {
-        echo '<a href="destruir_sesion.php" class="cerrar_sesion mis-datos-responsive"> Cerrar sesión</a>';
-      }
-      ?>
+  <section class="products container" id="lista-1">
+    <h3 class="platos-semana"> Resumen de Compra
     </h3>
     <hr>
 
-    <div class="datos">
-
-      <div class="perfil">
-        <i class="fa-solid fa-user"></i>
-        <?php
-        if ($nombreUsuario) {
-          echo $nombreUsuario . " " . $apellidoUsuario;
-        } ?>
+    <div class="contenedor-resumen">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th class="capitalize" style="background-color: #008000; color: white;">Producto</th>
+              <th style="background-color: #008000; color: white;">Cantidad</th>
+              <th style="background-color: #008000; color: white;">Precio unitario</th>
+              <th style="background-color: #008000; color: white;">Total</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+            <!-- Aquí se mostrarán los productos agregados al carrito -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" id="empty-cart-message"></td>
+            </tr>
+            <tr>
+              <td colspan="3"></td>
+              <td class="total-resumen">Total: <span id="total-price">0.00 €</span></td>
+            </tr>
+            <tr id="purchase-row" style="display: none;">
+              <td colspan="4" class="text-right">
+                <button class="procesar-compra" onclick="processPurchase()">Procesar Compra</button>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-envelope"></i>
-        <?php if ($email) {
-          echo $email;
-        } ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-address-card"></i>
-        <?php if ($direccionUsuario) {
-          echo $direccionUsuario;
-        } ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-phone"></i>
-        <?php if ($telefonoUsuario) {
-          echo $telefonoUsuario;
-        }
-        ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-key"></i>
-        <?php if ($password) {
-          echo enmascararContraseña();
-        }
-        ?>
-      </div>
+      <a href="productos.php" class="btn">Volver</a>
     </div>
-
-    <h3 class="platos-semana titulo-pedidos"> Mi Último Pedido </h3>
-    <hr>
-    <div class="datos pedidos">
-      <?php
-      include('controlador_informacion_perfil.php');
-      ?>
-    </div>
-
   </section>
-
   <footer class="footer">
-
     <div class="footer-copyright">
-
       <div class="fresh">
         <h3><span>Fresh</span>Taste</h3>
       </div>
@@ -154,7 +120,6 @@ function enmascararContraseña()
         <i class="fa-sharp fa-regular fa-copyright"></i>
       </div>
     </div>
-
     <div class="footer-copyright">
       <div class="link producto">
         <a href="productos.php">Productos</a>
@@ -196,6 +161,7 @@ function enmascararContraseña()
     </div>
   </footer>
 
+  </section>
   <!-- Modal Inicio de sesión-->
   <div id="ModalLogin" class="modal">
     <div class="modal-content">
@@ -210,6 +176,7 @@ function enmascararContraseña()
       </form>
     </div>
   </div>
+  <script src="resumen.js"></script>
   <script src="script.js"></script>
 </body>
 

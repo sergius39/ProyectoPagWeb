@@ -15,52 +15,58 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
 </head>
 
 <body>
-<header class="header">
-  <div class="menu container">
-    <div>
-      <a href="index.php" class="logo"><span>Fresh</span>Taste</a>        
+  <header class="header">
+    <div class="menu container">
+      <div>
+        <a href="index.php" class="logo"><span>Fresh</span>Taste</a>
+      </div>
+
+      <div class=menu-opciones>
+        <nav class="navbar">
+          <ul>
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="productos.php">Productos</a></li>
+            <li><a href="contacto.php">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="contenedor-carrito-login">
+
+        <nav>
+          <ul>
+            <li>
+              <img id="openCartBtn" class="cart-icon" src="imagenes/cart.svg" alt="Carrito de compras">
+              <?php if (!$nombreUsuario) {
+                echo '<span id="cart-count" class="hidden contador-carrito">0</span>';
+              } else {
+                echo '<span id="cart-count" class="hidden contador-carrito-usuario">0</span>';
+              }
+              ?>
+            </li>
+          </ul>
+        </nav>
+
+        <?php if (!$nombreUsuario) : ?> <!-- Verificar si no hay una sesión abierta -->
+          <nav class="icono-login">
+            <ul>
+              <li>
+                <img src="imagenes/login.svg" width=22px onclick="openModal()">
+              </li>
+            </ul>
+          <?php endif; ?> <!-- Fin de la verificación de la sesión -->
+          </nav>
+
+          <nav class="sesion_login">
+            <?php
+            if ($nombreUsuario) {
+              echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>';
+            }
+            ?>
+          </nav>
+      </div>
     </div>
-
-    <div class=menu-opciones>
-      <nav class="navbar">
-        <ul>
-          <li><a href="index.php">Inicio</a></li>
-          <li><a href="productos.php">Productos</a></li>
-          <li><a href="contacto.php">Contacto</a></li>             
-        </ul>
-      </nav>
-    </div>
-
-    <div class="contenedor-carrito-login">
-
-      <nav>
-        <ul>
-          <li>
-            <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
-          </li>
-        </ul>
-      </nav>
-
-      <?php if (!$nombreUsuario): ?> <!-- Verificar si no hay una sesión abierta -->
-      <nav class="icono-login">                
-        <ul>
-         <li>                                          
-           <img  src="imagenes/login.svg" width=22px onclick="openModal()">                        
-          </li>
-        </ul>            
-      <?php endif; ?> <!-- Fin de la verificación de la sesión -->  
-      </nav> 
-
-      <nav class="sesion_login">  
-        <?php
-          if ($nombreUsuario){
-            echo '<a href="informacion_perfil.php">¡Hola, ' . $nombreUsuario . '!</a>'; 
-          }   
-        ?>          
-      </nav>  
-    </div>     
-  </div>         
-</header>
+  </header>
 
   <section class="products container">
     <h3 class=" titulo-comentario">Coméntanos lo que quieras</h3>
@@ -93,7 +99,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
           </div>
 
           <div class="enviar_registro input_field">
-            <input type="submit" id="idenviar" value="Enviar" class="enviar">
+            <input type="submit" id="idenviar" value="Enviar">
           </div>
         </div>
       </form>
@@ -170,19 +176,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
       </form>
     </div>
   </div>
-
-<!-- Modal del carrito de compras -->
-<div id="cartModal" class="cart-modal">
-    <div class="cart-modal-content">
-      <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
-      <h2><span>Fresh</span>Taste</h2>
-      <div id="cartItems"></div>
-      <p id="total">Total: $0</p>
-      <p id="emptyCartMessage" style="display: none;">Tu carrito está vacío</p>
-      <button id="summaryBtn">Resumen de Compra</button>
-    </div>
-  </div>
-
   <script src="script.js"></script>
 </body>
+
 </html>

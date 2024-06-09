@@ -29,7 +29,7 @@ $administrador =  $_SESSION['administrador'];
     <h3 class="platos-semana"> Administrador
       <?php
       if ($administrador) {
-        echo '<a href="destruir_sesion.php" class="cerrar_sesion_admin">Cerrar sesión</a>';
+        echo '<a href="destruir_sesion.php" class="cerrar_sesion_admin mis-datos-responsive-admin">Cerrar sesión</a>';
       }
       ?>
     </h3>
@@ -58,7 +58,7 @@ $administrador =  $_SESSION['administrador'];
           <div class="admin-input">
             Correo <input type="text" name='email-admin'>
           </div>
-       
+
 
           <div class="admin-input">
             Teléfono <input type="text" name='telefono-admin'>

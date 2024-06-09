@@ -1,33 +1,23 @@
 <?php
 session_start();
-
-$nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUsuario']) : null;
-$apellidoUsuario = isset($_SESSION['apellidoUsuario']) ? $_SESSION['apellidoUsuario'] : null;
-$email = isset($_SESSION['emailUsuario']) ? $_SESSION['emailUsuario'] : null;
-$telefonoUsuario = isset($_SESSION['telefonoUsuario']) ? $_SESSION['telefonoUsuario'] : null;
-$password = isset($_SESSION['passUsuario']) ? $_SESSION['passUsuario'] : null;
-$idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
-$direccionUsuario = isset($_SESSION['direccionUsuario']) ? $_SESSION['direccionUsuario'] : null;
-
-function enmascararContraseña()
-{
-  return "*****";
-}
+$nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="e2">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="5;url=index.php"> <!-- Redireccionar a index.php después de 5 segundos -->
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
   <header class="header">
     <div class="menu container">
       <div>
@@ -81,65 +71,10 @@ function enmascararContraseña()
     </div>
   </header>
 
-  <section class="products container " id="lista-1">
-    <h3 class="platos-semana"> Mis datos
-      <?php
-      if ($nombreUsuario) {
-        echo '<a href="destruir_sesion.php" class="cerrar_sesion mis-datos-responsive"> Cerrar sesión</a>';
-      }
-      ?>
-    </h3>
+  <section class="products container" id="lista-1">
+    <h3 class="platos-semana">Enhorabuena</h3>
     <hr>
-
-    <div class="datos">
-
-      <div class="perfil">
-        <i class="fa-solid fa-user"></i>
-        <?php
-        if ($nombreUsuario) {
-          echo $nombreUsuario . " " . $apellidoUsuario;
-        } ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-envelope"></i>
-        <?php if ($email) {
-          echo $email;
-        } ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-address-card"></i>
-        <?php if ($direccionUsuario) {
-          echo $direccionUsuario;
-        } ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-phone"></i>
-        <?php if ($telefonoUsuario) {
-          echo $telefonoUsuario;
-        }
-        ?>
-      </div>
-
-      <div class="perfil">
-        <i class="fa-solid fa-key"></i>
-        <?php if ($password) {
-          echo enmascararContraseña();
-        }
-        ?>
-      </div>
-    </div>
-
-    <h3 class="platos-semana titulo-pedidos"> Mi Último Pedido </h3>
-    <hr>
-    <div class="datos pedidos">
-      <?php
-      include('controlador_informacion_perfil.php');
-      ?>
-    </div>
-
+    <p class="descripcion-plato-semana registro">Tu pedido ha sido procesado con éxito. Pronto disfrutarás del mejor y más fresco sabor.</p>
   </section>
 
   <footer class="footer">
@@ -194,23 +129,8 @@ function enmascararContraseña()
     <div>
       <p>© 2024 Todos los derechos reservados</p>
     </div>
-  </footer>
 
-  <!-- Modal Inicio de sesión-->
-  <div id="ModalLogin" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2><span>Fresh</span>Taste</h2>
-      <div id="error" class="errores"></div>
-      <form id="loginForm" method="post" action="">
-        <input type="text" placeholder="Email" id="email" name="email" class="modal-txt">
-        <input type="password" placeholder="Contraseña" id="password" name="password" class="modal-txt">
-        <input type="submit" name="validar" value="Entrar" onclick="return login()">
-        <p>¿Aún no tienes cuenta?<a href="registro.php"> Regístrate</a></p>
-      </form>
-    </div>
-  </div>
-  <script src="script.js"></script>
+  </footer>
 </body>
 
 </html>

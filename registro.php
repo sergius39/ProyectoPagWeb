@@ -36,7 +36,13 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
         <nav>
           <ul>
             <li>
-              <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras">
+              <img id="openCartBtn" class="cart-icon" src="imagenes/cart.svg" alt="Carrito de compras">
+              <?php if (!$nombreUsuario) {
+                echo '<span id="cart-count" class="hidden contador-carrito">0</span>';
+              } else {
+                echo '<span id="cart-count" class="hidden contador-carrito-usuario">0</span>';
+              }
+              ?>
             </li>
           </ul>
         </nav>
@@ -117,7 +123,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
             <input type="password" name="pass2Registro" id="idpass2" placeholder="Repetir Contraseña" value="<?php if (isset($_POST["pass2Registro"])) echo $_POST["pass2Registro"]; ?>">
           </div>
 
-          <div class="enviar_registro input_field">
+          <div class="input_field enviar_registro">
             <input type="submit" id="idenviar" value="Enviar">
           </div>
         </div>
@@ -219,19 +225,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
       </form>
     </div>
   </div>
-
-<!-- Modal del carrito de compras -->
-<div id="cartModal" class="cart-modal">
-    <div class="cart-modal-content">
-      <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
-      <h2><span>Fresh</span>Taste</h2>
-      <div id="cartItems"></div>
-      <p id="total">Total: $0</p>
-      <p id="emptyCartMessage" style="display: none;">Tu carrito está vacío</p>
-      <button id="summaryBtn">Resumen de Compra</button>
-    </div>
-  </div>
-
   <script src="script.js"></script>
 </body>
+
 </html>

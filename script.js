@@ -1,4 +1,4 @@
-//MODAL DE INICIO DE SESIÓN
+// MODAL DE INICIO DE SESIÓN
 var modalSesion = document.getElementById("ModalLogin");
 
 // Función para abrir el modal
@@ -67,153 +67,76 @@ function login() {
     return false; // Evitar que el formulario se envíe normalmente
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Obtener referencia al modal y al botón para abrirlo
-    var modal = document.getElementById("cartModal");
-    var openModalBtn = document.getElementById("openCartBtn");
+document.addEventListener('DOMContentLoaded', function () {
+    let cart = JSON.parse(localStorage.getItem('cart')) || {}; // Recuperar el contenido del carrito desde localStorage o crear un objeto vacío si no hay nada guardado
 
-    // Agregar evento al botón para abrir el modal
-    openModalBtn.addEventListener("click", function() {
-        modal.style.display = "block"; // Mostrar el modal al hacer clic en el botón
-    });
+    const cartIcon = document.querySelector('.cart-icon');
+    const cartCountElement = document.getElementById('cart-count');
+    const addToCartButtons = document.querySelectorAll('.agregar-carrito');
 
-    // Obtener referencia al botón para cerrar el modal
-    var closeButton = document.querySelector(".close");
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.parentNode.getAttribute('data-id');
+            const productName = button.parentNode.getAttribute('data-name');
+            const productPrice = parseFloat(button.parentNode.getAttribute('data-price'));
 
-    // Agregar evento al botón para cerrar el modal
-    closeButton.addEventListener("click", function() {
-        modal.style.display = "none"; // Ocultar el modal al hacer clic en el botón de cerrar
-    });
-
-    // Cerrar el modal si se hace clic fuera de él
-    window.addEventListener("click", function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Obtener referencia al contenedor de elementos del carrito
-    var cartItemsContainer = document.getElementById("cartItems");
-
-    // Función para agregar productos al carrito
-    function addToCart(id, name, price) {
-        var existingCartItem = document.querySelector(`.cart-item[data-id="${id}"]`);
-        if (existingCartItem) {
-            // Si el producto ya está en el carrito, aumentar su cantidad
-            var quantityElement = existingCartItem.querySelector(".quantity");
-            var currentQuantity = parseInt(quantityElement.textContent);
-            quantityElement.textContent = currentQuantity + 1;
-        } else {
-            // Si el producto no está en el carrito, agregarlo como nuevo
-            agregarAlCarrito(id, name, price);
-        }
-
-        // Actualizar el total después de agregar un producto
-        calcularTotal();
-        toggleSummaryButton();
-    }
-
-    // Función para eliminar productos del carrito
-    function removeFromCart(id) {
-        var cartItem = document.querySelector(`.cart-item[data-id="${id}"]`);
-        if (cartItem) {
-            var quantityElement = cartItem.querySelector(".quantity");
-            var currentQuantity = parseInt(quantityElement.textContent);
-            if (currentQuantity > 1) {
-                quantityElement.textContent = currentQuantity - 1;
+            // Incrementar cantidad del producto en el carrito o agregar nuevo producto
+            if (cart.hasOwnProperty(productId)) {
+                cart[productId].quantity++;
             } else {
-                cartItemsContainer.removeChild(cartItem);
+                cart[productId] = {
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                };
             }
-            // Actualizar el total después de eliminar un producto
-            calcularTotal();
-            toggleSummaryButton();
-        }
-    }
 
-    // Función para agregar un producto al carrito
-    function agregarAlCarrito(id, name, price) {
-        var cartItem = document.createElement("div");
-        cartItem.classList.add("cart-item");
-        cartItem.setAttribute("data-id", id);
-
-        var itemContent = `
-            <span>${name} - ${price.toFixed(2)} €</span>
-            <span class="quantity">1</span>
-            <button class="eliminar-producto">Eliminar</button>
-        `;
-        cartItem.innerHTML = itemContent;
-
-        cartItemsContainer.appendChild(cartItem);
-    }
-
-    // Función para calcular el total del precio en el carrito
-    function calcularTotal() {
-        var total = 0;
-        var cartItems = document.querySelectorAll(".cart-item");
-        cartItems.forEach(function(item) {
-            var priceString = item.querySelector("span").textContent.split(" - ")[1]; // Obtener la parte del precio del texto
-            var price = parseFloat(priceString.replace(" €", "")); // Eliminar el símbolo de euro
-            var quantity = parseInt(item.querySelector(".quantity").textContent);
-            total += price * quantity;
+            console.log("Contenido del carrito:", cart); // Mostrar el contenido del carrito en la consola
+            updateCartCount();
+            saveCartToLocalStorage(); // Guardar el contenido del carrito en localStorage
         });
+    });
 
-        document.getElementById("total").textContent = "Total: $" + total.toFixed(2);
-    }
+    // Actualizar el contador del carrito
+    function updateCartCount() {
+        let totalCount = 0;
+        for (const productId in cart) {
+            totalCount += cart[productId].quantity;
+        }
+        cartCountElement.textContent = totalCount;
 
-    // Función para mostrar/ocultar el botón de resumen de compra según el contenido del carrito
-    function toggleSummaryButton() {
-        var summaryBtn = document.getElementById("summaryBtn");
-        var cartItems = document.querySelectorAll(".cart-item");
-        if (cartItems.length > 0) {
-            summaryBtn.style.display = "block";
+        // Mostrar u ocultar el contador según sea necesario
+        if (totalCount > 0) {
+            cartCountElement.classList.remove('hidden');
         } else {
-            summaryBtn.style.display = "none";
+            cartCountElement.classList.add('hidden');
         }
     }
 
-    // Event delegation para manejar eventos de eliminar producto
-    cartItemsContainer.addEventListener("click", function(event) {
-        if (event.target && event.target.classList.contains("eliminar-producto")) {
-            var productItem = event.target.parentNode; // Obtener el elemento padre del botón eliminar (el div del producto en el carrito)
-            var productId = productItem.getAttribute("data-id");
-            removeFromCart(productId);
-        }
-    });
-
-    // Event delegation para manejar eventos de agregar producto
-    document.body.addEventListener("click", function(event) {
-        if (event.target && event.target.classList.contains("agregar-carrito")) {
-            var product = event.target.parentNode; // Obtener el elemento padre del botón (el div.product)
-            var productId = event.target.parentNode.getAttribute("data-id");
-            var productName = product.querySelector("h3").textContent;
-            var productPrice = parseFloat(product.querySelector(".precio").textContent.replace(" €", ""));
-            addToCart(productId, productName, productPrice);
-        }
-    });
-
-    // Obtener referencia al botón de resumen de compra
-    var summaryBtn = document.getElementById("summaryBtn");
-
-    // Agregar evento al botón de resumen de compra para redireccionar a checkout.php
-    summaryBtn.addEventListener("click", function() {
-        // Almacenar la información del carrito en el almacenamiento local
-        var cartItemsHTML = cartItemsContainer.innerHTML;
-
-        // Guardar la información del carrito en el almacenamiento local
-        localStorage.setItem("cartItems", cartItemsHTML);
-
-        // Redireccionar a checkout.php
-        window.location.href = "checkout.php";
-    });
-
-    // Función para cerrar el modal del carrito
-    function closeCartModal() {
-        modal.style.display = "none";
+    // Guardar el contenido del carrito en localStorage
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    // Asignar la función de cerrar modal del carrito al botón de cerrar
-    document.querySelector(".close-cart-modal").addEventListener("click", closeCartModal);
+    // Recuperar el contenido del carrito del localStorage al cargar la página
+    updateCartCount();
 
-    // Inicializar el estado del botón de resumen de compra
-    toggleSummaryButton();
+    // Redireccionar a la página de resumen de compra al hacer clic en la imagen del carrito
+    cartIcon.addEventListener('click', () => {
+        // Guardar el contenido del carrito en localStorage para poder recuperarlo en la página de resumen de compra
+        localStorage.setItem('cart', JSON.stringify(cart));
+        window.location.href = 'resumen.php'; // Redirigir al usuario a la página de resumen de compra
+    });
+});
+
+window.addEventListener('scroll', function() {
+    var header = document.querySelector('.menu');
+    var scrollPosition = window.scrollY;
+
+    if (scrollPosition > 0) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
 });

@@ -10,7 +10,6 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -36,7 +35,13 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
         <nav>
           <ul>
             <li>
-            <img id="openCartBtn" src="imagenes/cart.svg" alt="Carrito de compras" onclick="openCartModal()">
+              <img id="openCartBtn" class="cart-icon" src="imagenes/cart.svg" alt="Carrito de compras">
+              <?php if (!$nombreUsuario) {
+                echo '<span id="cart-count" class="hidden contador-carrito">0</span>';
+              } else {
+                echo '<span id="cart-count" class="hidden contador-carrito-usuario">0</span>';
+              }
+              ?>
             </li>
           </ul>
         </nav>
@@ -97,16 +102,16 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
 
     <div class="products-content">
 
-    <div class="product" data-id="plato-1" data-name="Salmón a la plancha" data-price="7.50">
+      <div class="product" data-id="plato-1" data-name="Salmón a la plancha" data-price="7.50">
         <!-- Contenido del producto -->
         <img class="salmon" src="imagenes/salmon a la plancha.jpg" alt="">
         <h3>Salmón a la plancha</h3>
         <p class="ajuste-txt">Delicioso salmón a la plancha acompañado de una cama de verduras</p>
         <p class="precio">7.50 €</p>
         <button class="agregar-carrito btn-2">Agregar al carrito</button>
-    </div>
+      </div>
 
-      <div class="product" data-id="plato-7" data-name="Berenjenas rellenas" data-price="8" >        
+      <div class="product" data-id="plato-7" data-name="Berenjenas rellenas" data-price="8">
         <img src="imagenes/berenjenas-rellenas.jpg" alt="">
         <h3>Berenjenas rellenas</h3>
         <p>berenjenas al horno que te dejarán con ganas de más</p>
@@ -114,7 +119,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
         <button class="agregar-carrito btn-2">Agregar al carrito</button>
       </div>
 
-      <div class="product" data-id="crema-1" data-name="Crema de guisantes" data-price="6.50" >         
+      <div class="product" data-id="crema-1" data-name="Crema de guisantes" data-price="6.50">
         <img src="imagenes/crema-de-guisantes.jpg" alt="">
         <h3>Crema de guisantes</h3>
         <p>Deliciosa crema de Guisantes que hará que repitas</p>
@@ -122,7 +127,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
         <button class="agregar-carrito btn-2">Agregar al carrito</button>
       </div>
 
-      <div class="product" data-id="pizza-1" data-name="Pizza de salvia y champiñón" data-price="12.50" >        
+      <div class="product" data-id="pizza-1" data-name="Pizza de salvia y champiñón" data-price="12.50">
         <img src="imagenes/pizzas-saudables-champinon.jpg" alt="">
         <h3>Pizza de salvia y champiñón</h3>
         <p>Impresionante pizza de champiñones acompañada por el toque fresco de la salvia</p>
@@ -131,7 +136,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
       </div>
 
 
-      <div class="product" data-id="pizza-4" data-name="Pizza de tomatitos y albahaca" data-price="13.50" >          
+      <div class="product" data-id="pizza-4" data-name="Pizza de tomatitos y albahaca" data-price="13.50">
         <img src="imagenes/pizza-caliente.webp" alt="">
         <h3>Pizza de tomatitos y albahaca</h3>
         <p>Espectacular pizza de de tomate con el toque fresco de la albahaca</p>
@@ -139,7 +144,7 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
         <button class="agregar-carrito btn-2">Agregar al carrito</button>
       </div>
 
-      <div class="product" data-id="postre-1" data-name="crema de papaya con helado y frutos rojos.jpg" data-price="3.50" >          
+      <div class="product" data-id="postre-1" data-name="crema de papaya con helado y frutos rojos.jpg" data-price="3.50">
         <img src="imagenes/crema-de-papaya-con-helado-y-frutos-rojos.jpg" alt="">
         <h3>Crema de papaya con helado y frutos rojos</h3>
         <p>Fresca y suave crema de helado con papaya y un toque de frutos rojos</p>
@@ -223,7 +228,6 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
     <div>
       <p>© 2024 Todos los derechos reservados</p>
     </div>
-
   </footer>
 
   <!-- Modal Inicio de sesión-->
@@ -240,19 +244,6 @@ $nombreUsuario = isset($_SESSION['nombreUsuario']) ? ucfirst($_SESSION['nombreUs
       </form>
     </div>
   </div>
-
-<!-- Modal del carrito de compras -->
-<div id="cartModal" class="cart-modal">
-    <div class="cart-modal-content">
-      <span class="close-cart-modal" onclick="closeCartModal()">&times;</span>
-      <h2><span>Fresh</span>Taste</h2>
-      <div id="cartItems"></div>
-      <p id="total">Total: $0</p>
-      <p id="emptyCartMessage" style="display: none;">Tu carrito está vacío</p>
-      <button id="summaryBtn">Resumen de Compra</button>
-    </div>
-  </div>
-
   <script src="script.js"></script>
 </body>
 

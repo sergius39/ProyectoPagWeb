@@ -9,6 +9,7 @@
   text-decoration: none;
   list-style: none;
   font-family: "Inter Tight", sans-serif;
+  color: #000000;
 }
 
 .container {
@@ -152,11 +153,11 @@ span {
 
 table {
   width: 100%;
+  margin: 20px 0;
 }
 
-th,
-td {
-  color: black;
+.thead-dark {
+  height: 40px;
 }
 
 .borrar {
@@ -250,7 +251,7 @@ h2 {
 
 .platos-semana {
   font-size: 40px;
-  margin-top: -20px;
+  margin-top: -100px;
   margin-bottom: 20px;
   text-align: start;
 }
@@ -401,6 +402,7 @@ h2 {
 
 .formulario-content h1 {
   font-size: 50px;
+  margin-top: -65px;
 }
 
 textarea {
@@ -461,6 +463,7 @@ input::placeholder,
 textarea::placeholder {
   font-size: 15px;
   font-weight: bold;
+  color: #008000;
 }
 
 .input_field i {
@@ -500,32 +503,26 @@ textarea::placeholder {
 }
 
 .enviar_registro {
-  background-color: white;
   margin: 15px 0;
   border-radius: 5px;
   display: flex;
   align-items: center;
-  transition: max-height 0.5s;
   overflow: hidden;
-}
-
-.enviar_registro:hover {
-  background-color: green;
-  margin: 15px 0;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  transition: max-height 0.5s;
-  overflow: hidden;
-}
-
-.enviar_registro input[type="submit"]:hover {
-  font-size: 20px;
-  color: #ffffff;
+  border: 2px black solid;
 }
 
 .enviar_registro input[type="submit"] {
   font-size: 20px;
+  color: #000000;
+  background-color: #ffffff;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.enviar_registro input[type="submit"]:hover {
+  font-size: 20px;
+  background-color: #008000;
+  color: #ffffff;
 }
 
 .errores {
@@ -567,9 +564,9 @@ textarea::placeholder {
   background-color: red;
 }
 
-.btn-2{
-border: none;
-background-color: transparent;
+.btn-2 {
+  border: none;
+  background-color: transparent;
 }
 
 /*FOOTER*/
@@ -631,7 +628,7 @@ background-color: transparent;
 }
 
 .titulo-comentario {
-  margin-top: -20px;
+  margin-top: -100px;
   font-size: 40px;
   margin-bottom: 20px;
   text-align: start;
@@ -697,6 +694,21 @@ background-color: transparent;
   margin-right: 20px;
 }
 
+.table-ultimo-pedido {
+  width: 100%;
+}
+
+.table-ultimo-pedido td {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.letra-cantidad-start {
+  text-align: start;
+}
+.letra-cantidad-centro {
+  text-align: center;
+}
 /*MODAL LOGIN*/
 
 .modal {
@@ -780,6 +792,152 @@ a img {
 
 /* MODAL CARRITO*/
 
+.cart-icon {
+  position: relative; /* Asegura que el número se posicione correctamente con respecto a la imagen */
+}
+
+.contador-carrito {
+  position: absolute; /* Coloca el número de manera absoluta con respecto a su contenedor */
+  top: 10px; /* Ajusta la posición verticalmente según sea necesario */
+  right: 30px; /* Ajusta la posición horizontalmente según sea necesario */
+  background-color: green; /* Color de fondo verde */
+  color: white; /* Color de texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  border-radius: 50%; /* Da forma circular al número */
+  padding: 4px 8px; /* Ajusta el espaciado interno */
+  font-size: 10px;
+}
+
+.contador-carrito-usuario {
+  position: absolute; /* Coloca el número de manera absoluta con respecto a su contenedor */
+  top: 10px; /* Ajusta la posición verticalmente según sea necesario */
+  right: 110px; /* Ajusta la posición horizontalmente según sea necesario */
+  background-color: green; /* Color de fondo verde */
+  color: white; /* Color de texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  border-radius: 50%; /* Da forma circular al número */
+  padding: 4px 8px; /* Ajusta el espaciado interno */
+  font-size: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0); /* Color de fondo inicial transparente */
+  z-index: 1000;
+  transition: background-color 0.3s ease; /* Agregamos una transición suave */
+}
+
+.menu.scrolled {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* Color negro transparente al hacer scroll down */
+}
+
+.quantity-btn {
+  font-size: 1.5rem; /* Tamaño del texto */
+  padding: 0.5rem 1rem; /* Espaciado interno para aumentar el área de clic */
+  cursor: pointer; /* Cambia el cursor al pasar sobre los símbolos */
+}
+
+#cart-items,
+.table {
+  text-align: center;
+}
+
+.total-resumen {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.procesar-compra {
+  width: 30%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0 0 830px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.procesar-compra:hover {
+  color: #ffffff;
+  background-color: #008000;
+}
+
+.btn {
+  width: 60%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  position: relative; /* Asegura que el pseudo-elemento se posicione correctamente */
+  transition: color 0.3s; /* Transición del color del texto */
+}
+
+.btn:hover {
+  color: #008000;
+  font-weight: bold;
+}
+
+.btn:hover::after {
+  width: 100%;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Posicionamos debajo del texto */
+  width: 0;
+  height: 2px;
+  background-color: green;
+  transition: width 0.3s; /* Agrega una transición suave */
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.mt-5 {
+  margin-bottom: 50px;
+}
+
+.btn-inc-dec {
+  background-color: transparent; /* Eliminar fondo */
+  border: none; /* Eliminar borde */
+  cursor: pointer;
+  padding: 20px;
+}
+
+/* Estilos para el icono dentro del botón */
+.btn-inc-dec i {
+  font-size: 18px; /* Tamaño del icono */
+}
+
+/* Ajusta el contenido debajo del menú fijo */
+.products {
+  margin-top: 80px; /* Ajusta este valor según sea necesario para evitar que el contenido se superponga con el menú */
+}
+
 /* Estilos para el modal del carrito de compras */
 .cart-modal {
   position: fixed;
@@ -787,7 +945,7 @@ a img {
   right: 0;
   width: 20%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  background-color: #ffffff;
   z-index: 999; /* Z-index alto para que esté por encima del contenido */
   display: none; /* Por defecto oculto */
   overflow-x: hidden; /* Oculta el desbordamiento horizontal */
@@ -795,19 +953,14 @@ a img {
 }
 
 .cart-modal-content {
-  background-color: rgba(196, 192, 192, 0.8); /* Fondo semi-transparente */
+  background-color: #ffffff;
   width: 100%;
   height: 100%;
   padding: 20px;
 }
 
-/* Estilos para el botón de cerrar del modal */
-.close-cart-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
+.cart-modal-content h2 {
+  color: #000000;
 }
 
 .eliminar-producto {
@@ -891,6 +1044,10 @@ h4 {
 
 /*RESUMEN DE COMPRA*/
 
+.contenedor-resumen {
+  margin-bottom: 50px;
+}
+
 .total_resumen {
   color: #008000;
   font-size: 30px;
@@ -898,51 +1055,50 @@ h4 {
   text-align: justify;
 }
 
-.eliminar-producto{
+.eliminar-producto {
   border: none;
-  background-color: transparent;  
+  background-color: transparent;
 }
 
-.eliminar-producto:hover{
+.eliminar-producto:hover {
   color: #008000;
 }
 
-.total_resumen button{
-  background-color: transparent;  
+.total_resumen button {
+  background-color: transparent;
   border: none;
   font-size: 18px;
 }
 
-.total_resumen p{
-color: #000000;
-font-size: 30px;
-margin-top: 30px;
+.total_resumen p {
+  color: #000000;
+  font-size: 30px;
+  margin-top: 30px;
 }
 
-#processPurchaseBtn{
-width: 100%;
-border: 1px black solid;
-border-radius: 5px;
-font-size: 30px;
-}
-
-#processPurchaseBtn:hover{
+#processPurchaseBtn {
   width: 100%;
   border: 1px black solid;
-  background-color:#008000;
+  border-radius: 5px;
+  font-size: 30px;
+}
+
+#processPurchaseBtn:hover {
+  width: 100%;
+  border: 1px black solid;
+  background-color: #008000;
   color: #ffffff;
   border-radius: 5px;
   font-size: 30px;
   margin-left: 0;
 }
 
-.errores_pedido{
+.errores_pedido {
   font-size: 15px;
   color: #000000;
   font-weight: bold;
   margin: 20px 0;
 }
-
 
 @media (max-width: 600px) {
   .menu.container {
@@ -959,11 +1115,33 @@ font-size: 30px;
 
   .contenedor-carrito-login {
     gap: 1.5rem;
+
+    justify-content: center;
+    text-align: center;
   }
 
-  .contenedor-carrito-login {
-    justify-content: start;
-    text-align: start;
+  .contador-carrito {
+    position: absolute; /* Coloca el número de manera absoluta con respecto a su contenedor */
+    top: 120px; /* Ajusta la posición verticalmente según sea necesario */
+    right: 255px; /* Ajusta la posición horizontalmente según sea necesario */
+    background-color: green; /* Color de fondo verde */
+    color: white; /* Color de texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    border-radius: 50%; /* Da forma circular al número */
+    padding: 4px 8px; /* Ajusta el espaciado interno */
+    font-size: 10px;
+  }
+
+  .contador-carrito-usuario {
+    position: absolute; /* Coloca el número de manera absoluta con respecto a su contenedor */
+    top: 120px; /* Ajusta la posición verticalmente según sea necesario */
+    right: 285px; /* Ajusta la posición horizontalmente según sea necesario */
+    background-color: green; /* Color de fondo verde */
+    color: white; /* Color de texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    border-radius: 50%; /* Da forma circular al número */
+    padding: 4px 8px; /* Ajusta el espaciado interno */
+    font-size: 10px;
   }
 
   .admin-container {
@@ -1087,5 +1265,24 @@ font-size: 30px;
   }
   .formulario-content {
     width: 90%;
+  } 
+
+  .mis-datos-responsive{
+    margin-left: 132px;
   }
+  .mis-datos-responsive-admin{
+    margin-left: 68px;
+  }
+
+  .procesar-compra{
+    width: 50%;
+    margin-left: 210px;
+  }
+  .cantidad-content{
+    display: flex;
+  }
+
+  .resumen-numero-responsive{
+    margin-top: 20px;    
+  }  
 }

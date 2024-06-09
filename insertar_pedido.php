@@ -2,18 +2,20 @@
 
 session_start();
 include('conexion.php');
-$idcliente = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null;
 
-
+// Verificar si el usuario está logueado
 if (!isset($_SESSION['idUsuario'])) {
-    $_SESSION['error_message'] = "Para procesar tu pedido es necesario registrarse";
-    header("Location: checkout.php"); // Redirigir de vuelta a checkout.php
-    exit; // Detener la ejecución del script
+    echo json_encode(['success' => false, 'message' => 'Para procesar tu pedido es necesario registrarse']);
+    exit;
 }
 
-// Decodificar los datos del carrito y el total
-$cartData = json_decode($_GET['cartData'], true);
-$total = $_GET['total']. " €";
+// Obtener ID del cliente
+$idcliente = $_SESSION['idUsuario'];
+
+// Obtener los datos enviados desde resumen.js
+$data = json_decode(file_get_contents('php://input'), true);
+$cartData = $data['cartData'];
+$total = $data['total'];
 
 // Preparar la consulta SQL para insertar el pedido
 $sql_pedido = "INSERT INTO pedido (idcliente, totalPedido, fechaPedido) VALUES (?, ?, NOW())";
@@ -21,7 +23,7 @@ $stmt_pedido = $conn->prepare($sql_pedido);
 
 if ($stmt_pedido) {
     // Vincular los parámetros
-    $stmt_pedido->bind_param("is", $idcliente,$total);
+    $stmt_pedido->bind_param("is", $idcliente, $total);
 
     // Ejecutar la consulta preparada para insertar el pedido
     if ($stmt_pedido->execute()) {
@@ -42,18 +44,13 @@ if ($stmt_pedido) {
                     $id_producto = $id_parts[1]; // ID del producto
                     $cantidad = $item['quantity']; // Cantidad del producto
 
-                    echo "<script>";
-                    echo "console.log('Tipo de Producto:', '" . json_encode($tipo_item) . "');";
-                    echo "console.log('ID del Producto:', '" . json_encode($id_producto) . "');";
-                    echo "console.log('Cantidad:', '" . json_encode($cantidad) . "');";
-                    echo "</script>";
-
-
                 } else {
-                    echo "Error: El formato de ID del producto es incorrecto";
+                    echo json_encode(['success' => false, 'message' => 'El formato de ID del producto es incorrecto']);
+                    exit;
                 }
             } else {
-                echo "Error: Faltan claves 'id' o 'quantity' en el ítem del carrito";
+                echo json_encode(['success' => false, 'message' => 'Faltan claves "id" o "quantity" en el ítem del carrito']);
+                exit;
             }
 
             // Preparar la consulta SQL para insertar el detalle del pedido
@@ -67,14 +64,14 @@ if ($stmt_pedido) {
                 $detalles_insertados = false;
                 break; // Salir del bucle
             }
-            
+
             $stmt_detalle_pedido->close();
         }
 
         // Si todos los detalles se insertaron correctamente
         if ($detalles_insertados) {
             // Mostrar mensaje de éxito
-            echo "Pedido insertado correctamente.";
+            echo json_encode(['success' => true, 'message' => 'Pedido insertado correctamente']);
         } else {
             // Si falla la inserción de algún detalle, eliminar el pedido previamente insertado
             $sql_eliminar_pedido = "DELETE FROM pedido WHERE idpedido = ?";
@@ -83,20 +80,17 @@ if ($stmt_pedido) {
             $stmt_eliminar_pedido->execute();
             $stmt_eliminar_pedido->close();
 
-            echo "Error al insertar los detalles del pedido.";
+            echo json_encode(['success' => false, 'message' => 'Error al insertar los detalles del pedido']);
         }
     } else {
-        echo "Error al insertar el pedido: " . $stmt_pedido->error;
+        echo json_encode(['success' => false, 'message' => 'Error al insertar el pedido: ' . $stmt_pedido->error]);
     }
 
     // Cerrar la declaración preparada para insertar el pedido
     $stmt_pedido->close();
 } else {
-    echo "Error al preparar la consulta para insertar el pedido: " . $conn->error;
+    echo json_encode(['success' => false, 'message' => 'Error al preparar la consulta para insertar el pedido: ' . $conn->error]);
 }
 
 // Cerrar la conexión
 $conn->close();
-
-
-?>
